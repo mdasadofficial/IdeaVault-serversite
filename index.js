@@ -24,6 +24,12 @@ async function run() {
     const database = client.db("ideavault");
     const ideasCollection = database.collection("ideas");
 
+    // Get Api
+    app.get("/idea", async (req, res) => {
+      const result = await ideasCollection.find().toArray();
+      res.json(result);
+    });
+
     // Post Api
     app.post("/idea", async (req, res) => {
       const ideaData = req.body;
