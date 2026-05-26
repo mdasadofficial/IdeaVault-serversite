@@ -1,7 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 dotenv.config();
 const uri = process.env.MONGODB_URI;
 const app = express();
@@ -37,6 +37,29 @@ async function run() {
       const result = await ideasCollection.insertOne(ideaData);
       res.json(result);
     });
+    
+
+    // Idea Details page Get  Api
+    app.get("/idea/:id", async (req, res) => {
+      const { id } = req.params;
+      const result = await ideasCollection.findOne({_id: new ObjectId(id)})
+      res.json(result)
+    });
+
+     // Idea Details Updated Api
+   app.patch("/idea/:id", async (req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body
+    const result = await ideasCollection.updateOne(
+        
+        {_id: new ObjectId(id)},
+        {$set: updatedData }
+
+    )
+
+    res.json(result)
+   })
+
 
     await client.db("admin").command({ ping: 1 });
     console.log(
