@@ -37,29 +37,33 @@ async function run() {
       const result = await ideasCollection.insertOne(ideaData);
       res.json(result);
     });
-    
 
     // Idea Details page Get  Api
     app.get("/idea/:id", async (req, res) => {
       const { id } = req.params;
-      const result = await ideasCollection.findOne({_id: new ObjectId(id)})
-      res.json(result)
+      const result = await ideasCollection.findOne({ _id: new ObjectId(id) });
+      res.json(result);
     });
 
-     // Idea Details Updated Api
-   app.patch("/idea/:id", async (req, res) => {
-    const { id } = req.params;
-    const updatedData = req.body
-    const result = await ideasCollection.updateOne(
-        
-        {_id: new ObjectId(id)},
-        {$set: updatedData }
+    // Idea Details Updated Api
+    app.patch("/idea/:id", async (req, res) => {
+      const { id } = req.params;
+      const updatedData = req.body;
+      const result = await ideasCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: updatedData },
+      );
 
-    )
+      res.json(result);
+    });
 
-    res.json(result)
-   })
+    // Delete Api
+    app.delete("/idea/:id", async (req, res) => {
+      const { id } = req.params;
+      const result = await ideasCollection.deleteOne({ _id: new ObjectId(id) });
 
+      res.json(result);
+    });
 
     await client.db("admin").command({ ping: 1 });
     console.log(
