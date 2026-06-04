@@ -77,7 +77,79 @@ run().catch(console.dir);
 
 // Get Api
 app.get("/", (req, res) => {
-  res.send("Hello, World!");
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="bn">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome to My Server</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #fff;
+            }
+            .welcome-card {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 3rem 2rem;
+                border-radius: 20px;
+                text-align: center;
+                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+                max-width: 500px;
+                width: 90%;
+                animation: fadeIn 1.5s ease-in-out;
+            }
+            h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                letter-spacing: 1px;
+            }
+            p {
+                font-size: 1.1rem;
+                color: #e0e0e0;
+                line-height: 1.6;
+                margin-bottom: 2rem;
+            }
+            .status-badge {
+                display: inline-block;
+                background: #4ade80;
+                color: #111827;
+                padding: 0.5rem 1.5rem;
+                border-radius: 50px;
+                font-weight: bold;
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                box-shadow: 0 4px 15px rgba(74, 222, 128, 0.4);
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="welcome-card">
+            <h1>👋 স্বাগতম!</h1>
+            <p>আপনার Express.js সার্ভারটি সফলভাবে রান হয়েছে। এটি এখন ক্লায়েন্ট রিকোয়েস্ট গ্রহণ করার জন্য সম্পূর্ণ প্রস্তুত।</p>
+            <span class="status-badge">Server is Online</span>
+        </div>
+
+    </body>
+    </html>
+  `);
 });
 
 app.listen(PORT, () => {
