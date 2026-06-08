@@ -1,3 +1,6 @@
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -19,15 +22,21 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+    // await client.connect();
 
     const database = client.db("ideavault");
     const ideasCollection = database.collection("ideas");
+    const usersCollection = database.collection("users");
 
     // Get Api
     app.get("/idea", async (req, res) => {
       const result = await ideasCollection.find().toArray();
       res.json(result);
+    });
+
+    // Test
+    app.get("/test", async (req, res) => {
+      res.json("This is a test endpoint!");
     });
 
     // Post Api
@@ -64,6 +73,16 @@ async function run() {
 
       res.json(result);
     });
+
+    // Post Api for users
+    app.post("/users", async (req, res) => {
+      const userData = req.body;
+      const result = await usersCollection.insertOne(userData);
+      return res.json(result);
+    });
+
+
+    
 
     await client.db("admin").command({ ping: 1 });
     console.log(
