@@ -74,15 +74,19 @@ async function run() {
       res.json(result);
     });
 
+    // get api for users
+    app.get("/users/:userId", async (req, res) => {
+      const { userId } = req.params;
+      const result = await usersCollection.find({ userId }).toArray();
+      res.json(result);
+    });
+
     // Post Api for users
     app.post("/users", async (req, res) => {
       const userData = req.body;
       const result = await usersCollection.insertOne(userData);
       return res.json(result);
     });
-
-
-    
 
     await client.db("admin").command({ ping: 1 });
     console.log(
