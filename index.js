@@ -1,5 +1,5 @@
 const dns = require("dns");
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const express = require("express");
 const dotenv = require("dotenv");
@@ -19,7 +19,7 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-
+    
 async function run() {
   try {
     // await client.connect();
@@ -85,6 +85,8 @@ async function run() {
     app.post("/users", async (req, res) => {
       const userData = req.body;
       const result = await usersCollection.insertOne(userData);
+      console.log("User Data",userData);
+      console.log("Result",result);
       return res.json(result);
     });
 
