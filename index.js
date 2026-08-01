@@ -35,9 +35,9 @@ async function run() {
     });
 
     // Test
-    app.get("/test", async (req, res) => {
-      res.json("This is a test endpoint!");
-    });
+    // app.get("/test", async (req, res) => {
+    //   res.json("This is a test endpoint!");
+    // });
 
     // Post Api
     app.post("/idea", async (req, res) => {
