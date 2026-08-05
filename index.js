@@ -28,11 +28,12 @@ async function run() {
     const ideasCollection = database.collection("ideas");
     const usersCollection = database.collection("users");
 
-    // Get Api
+    // My Ideas Get Api
     app.get("/idea", async (req, res) => {
-      const result = await ideasCollection.find().toArray();
-      res.json(result);
-    });
+  const { userId } = req.query;
+  const result = await ideasCollection.find({ userId: userId }).toArray();
+  res.json(result);
+});
 
     // Test
     // app.get("/test", async (req, res) => {
