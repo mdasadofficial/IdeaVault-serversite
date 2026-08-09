@@ -19,7 +19,7 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-    
+
 async function run() {
   try {
     // await client.connect();
@@ -29,21 +29,16 @@ async function run() {
     const usersCollection = database.collection("users");
 
     // My Ideas Get Api
-    app.get("/idea", async (req, res) => {
-  const { userId } = req.query;
-  const result = await ideasCollection.find({ userId: userId }).toArray();
-  res.json(result);
-});
-
-    // Test
-    // app.get("/test", async (req, res) => {
-    //   res.json("This is a test endpoint!");
-    // });
+    app.get("/idea/:userId", async (req, res) => {
+      const { userId } = req.params;
+      const result = await ideasCollection.find({ userId }).toArray();
+      res.json(result);
+    });
 
     // Post Api
     app.post("/idea", async (req, res) => {
       const ideaData = req.body;
-      console.log(ideaData);
+      // console.log(ideaData);
       const result = await ideasCollection.insertOne(ideaData);
       res.json(result);
     });
@@ -86,8 +81,8 @@ async function run() {
     app.post("/users", async (req, res) => {
       const userData = req.body;
       const result = await usersCollection.insertOne(userData);
-      console.log("User Data",userData);
-      console.log("Result",result);
+      console.log("User Data", userData);
+      console.log("Result", result);
       return res.json(result);
     });
 
