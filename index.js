@@ -35,6 +35,12 @@ async function run() {
       res.json(result);
     });
 
+  // ideas get api
+   app.get("/ideas", async (req, res) => {
+      const result = await ideasCollection.find({}).toArray();
+      res.json(result);
+    });
+
     // Post Api
     app.post("/idea", async (req, res) => {
       const ideaData = req.body;
