@@ -44,7 +44,7 @@ async function run() {
     // Post Api
     app.post("/idea", async (req, res) => {
       const ideaData = req.body;
-      // console.log(ideaData);
+      console.log(ideaData);
       const result = await ideasCollection.insertOne(ideaData);
       res.json(result);
     });
